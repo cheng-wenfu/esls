@@ -119,15 +119,16 @@ export default {
               path: '/home',
               name: 'home',
               icon: 'home',
-              cmoponent: '',
+              component: './Home/Home',
               authority: ['admin', 'user']
             },
+            /*
             //商品管理
             {
-              path: 'goodManage',
+              path: '/goodManage',
               name: 'goodManage',
               icon: 'dashboard',
-              cmoponent: '',
+              component: '',
               authority: ['admin', 'user']
             },
             //变价监控
@@ -135,7 +136,7 @@ export default {
               path: '/priceChange',
               name: 'priceChange',
               icon: 'block',
-              cmoponent: '',
+              component: '',
               authority: ['admin', 'user']
             },
             //价签管理
@@ -143,15 +144,15 @@ export default {
               path: '/tagManage',
               name: 'tagManage',
               icon: 'tag',
-              cmoponent: '',
+              component: '',
               authority: ['admin', 'user']
             },
             //样式管理
             {
               path: '/styleManage',
-              name: 'sytleManage',
+              name: 'styleManage',
               icon: 'picture',
-              cmoponent: '',
+              component: '',
               authority: ['admin', 'user']
             },
             //店铺管理
@@ -159,7 +160,7 @@ export default {
               path: '/shopManage',
               name: 'shopManage',
               icon: 'shop',
-              cmoponent: '',
+              component: '',
               authority: ['admin', 'user']
             },
             //路由器管理
@@ -167,7 +168,7 @@ export default {
               path: '/routerManage',
               name: 'routerManage',
               icon: 'control',
-              cmoponent: '',
+              component: '',
               authority: ['admin', 'user']
             },
             //用户管理
@@ -175,7 +176,7 @@ export default {
               path: '/userManage',
               name: 'userManage',
               icon: 'user',
-              cmoponent: '',
+              component: '',
               authority: ['admin', 'user']
             },
             //定期任务管理
@@ -183,7 +184,7 @@ export default {
               path: '/taskManage',
               name: 'taskManage',
               icon: 'pushpin',
-              cmoponent: '',
+              component: '',
               authority: ['admin', 'user']
             },
             //数据备份与导入
@@ -191,7 +192,7 @@ export default {
               path: '/dataManage',
               name: 'dataManage',
               icon: 'database',
-              cmoponent: '',
+              component: '',
               authority: ['admin', 'user']
             },
             //证书管理
@@ -199,7 +200,7 @@ export default {
               path: '/certificateManage',
               name: 'certificateManage',
               icon: 'audit',
-              cmoponent: '',
+              component: '',
               authority: ['admin', 'user']
             },
             //系统参数设置
@@ -207,11 +208,9 @@ export default {
               path: '/setting',
               name: 'setting',
               icon: 'setting',
-              cmoponent: '',
+              component: '',
               authority: ['admin', 'user']
-            },
-
-
+            },*/
             {
               component: './404',
             },
@@ -221,6 +220,16 @@ export default {
           component: './404',
         },
       ],
+    },
+
+    //TODO:添加新布局(后期不要)
+    {
+      path: '/test',
+      component: '../layouts/TestLayout',
+      routes: [
+
+      ]
+
     },
 
     {
