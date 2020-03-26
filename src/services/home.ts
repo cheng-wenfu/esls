@@ -13,7 +13,7 @@ export async function getUserData(id) {
   });
 }
 
-export async function getLoginLog(page: number) {
+export async function getOperationLog(page: number) {
   const url = `/api/operationLogs/?page=${page}&count=10`;
   return request(url, {
     method: 'GET',
