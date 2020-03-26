@@ -1,23 +1,54 @@
 import { Reducer } from 'redux';
 import { Effect } from 'dva';
 
-import { getCommonIndex, getUserData, getLoginLog } from '@/services/home';
+import { getCommonIndex, getOperationLog } from '@/services/home';
+
+export interface commonIndexType {
+  goodSize?: number;
+  tagSize?: number;
+  routerSize?: number;
+  styleSzie?: number;
+  shopSize?: number;
+  userSize?: number;
+  normalTagSize?: number;
+  noBindTagSize?: number;
+  noIsWorkingTagSize?: number;
+  forbiddenTagSize?: number;
+  normalRouterSize?: number;
+  forbiddenRouterSize?: number;
+  noIsWorkingRouterSize?: number;
+}
+
+export interface LogType {
+  logDescription: string;
+  userName: string;
+  ip: string;
+  createTime: number;
+  id?: number;
+  actionArgs?: string;
+  className?: string;
+  methodName?: string;
+  modelName?: string;
+  action?: string;
+  succeed?: string;
+  message?: string;
+  execIime?: string;
+}
 
 export interface HomeModelState {
-  commonIndex?: {};
-  loginInfo?: {};
+  commonIndex?: commonIndexType;
+  operationLog?: LogType[];
 }
 
 export interface HomeModelType {
   namespace: string;
   state: HomeModelState;
   effects: {
-    fetchIndex: Effect;
-    fetchUserData: Effect;
-    getLoginInfo: Effect;
+    fetchCommonIndex: Effect;
+    fetchOperationLog: Effect;
   };
   reducers: {
-    saveLoginInfo: Reducer<HomeModelState>;
+    saveOperationLog: Reducer<HomeModelState>;
     saveCommonIndex: Reducer<HomeModelState>;
   };
 }
@@ -27,11 +58,11 @@ const Model: HomeModelType = {
 
   state: {
     commonIndex: {},
-    loginInfo: {},
+    operationLog: [],
   },
 
   effects: {
-    *fetchIndex(_, { call, put }) {
+    *fetchCommonIndex(_, { call, put }) {
       const response = yield call(getCommonIndex);
       yield put({
         type: 'saveCommonIndex',
@@ -39,28 +70,20 @@ const Model: HomeModelType = {
       });
     },
 
-    *fetchUserData({ payload }, { call, put }) {
-      const response = yield call(getUserData, payload);
+    *fetchOperationLog({ payload }, { call, put }) {
+      const response = yield call(getOperationLog, payload);
       yield put({
-        type: 'saveUserData',
-        payload: response,
-      });
-    },
-
-    *getLoginInfo({ payload }, { call, put }) {
-      const response = yield call(getLoginLog, payload);
-      yield put({
-        type: 'saveLoginInfo',
+        type: 'saveOperationLog',
         payload: response,
       });
     },
   },
 
   reducers: {
-    saveLoginInfo(state, { payload }) {
+    saveOperationLog(state, { payload }) {
       return {
         ...state,
-        loginInfo: payload.data,
+        operationLog: payload.data,
       };
     },
     saveCommonIndex(state, { payload }) {
