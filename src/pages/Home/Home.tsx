@@ -5,9 +5,12 @@ import { connect } from 'dva';
 import { Dispatch, AnyAction } from 'redux';
 
 import { ConnectState, HomeModelState } from '@/models/connect';
+import { commonIndexType, LogType } from '@/models/home';
+import { LogDataType } from './components/OperationLog';
+
 import DataCard from './components/DataCard';
 import DataPie from './components/DataPie';
-import LoginLog from './components/LoginLog';
+import OperationLog from './components/OperationLog';
 
 interface HomeProps {
   dispatch: Dispatch<AnyAction>;
@@ -15,92 +18,105 @@ interface HomeProps {
 }
 
 interface HomeState {
-  indexData: {};
   page: number;
-  LoginData: [];
 }
 
 class Home extends Component<HomeProps, HomeState> {
   state: HomeState = {
-    indexData: {},
     page: 0,
-    LoginData: [],
   };
 
   componentDidMount() {
     const { dispatch } = this.props;
+    //下面是页面请求
     dispatch({
-      type: 'home/fetchIndex',
+      type: 'home/fetchCommonIndex',
     });
     dispatch({
-      type: 'home/getLoginInfo',
+      type: 'home/fetchOperationLog',
       payload: this.state.page,
     });
-    console.log('----------------');
+    console.log('2222222222222222');
   }
 
-  getLoginLog(loginInfo) {
-    const data = [];
+  /**
+   *
+   * @param commonIndex 初始化数据
+   * @param type 路由器或者是价签
+   */
+  getPieData(commonIndex: commonIndexType, type: 'tag' | 'router') {
+    if (type === 'tag') {
+      const { normalTagSize, noBindTagSize, noIsWorkingTagSize, forbiddenTagSize } = commonIndex;
+      const tagData = {
+        value: [
+          {
+            type: '正常',
+            value: normalTagSize,
+          },
+          {
+            type: '未绑定',
+            value: noBindTagSize,
+          },
+          {
+            type: '离线',
+            value: noIsWorkingTagSize,
+          },
+          {
+            type: '禁用',
+            value: forbiddenTagSize,
+          },
+        ],
+        title: '价签信息',
+        elementId: 'canvas1',
+      };
+      return tagData;
+    } else if (type === 'router') {
+      const { normalRouterSize, forbiddenRouterSize, noIsWorkingRouterSize } = commonIndex;
+      const routerData = {
+        value: [
+          {
+            type: '正常',
+            value: normalRouterSize,
+          },
+          {
+            type: '离线',
+            value: noIsWorkingRouterSize,
+          },
+          {
+            type: '禁用',
+            value: forbiddenRouterSize,
+          },
+        ],
+        title: '路由器信息',
+        elementId: 'canvas2',
+      };
+      return routerData;
+    }
+  }
+
+  getOperationLog(operationLog: LogType[]): LogDataType[] {
+    //为什么是先调用这个函数，再调用componentDidMount
+    console.log('11111111111');
+    const operationLogs = [];
     for (let i = 0; i < 10; i++) {
-      console.log(loginInfo[i], '1222134241');
-      let { logDescription, userName, ip, creatime } = loginInfo[i];
-      data.push({
+      let { logDescription, userName, ip, createTime } = operationLog[i];
+      operationLogs.push({
         userName: userName,
         operation: logDescription,
         ipAddress: ip,
-        time: creatime,
+        time: createTime,
       });
     }
-    return data;
+    return operationLogs;
   }
 
   render() {
-    const { commonIndex } = this.props.statisticData;
-    const { loginInfo } = this.props.statisticData;
-    const { normalTagSize, noBindTagSize, noIsWorkingTagSize, forbiddenTagSize } = commonIndex;
-    const { normalRouterSize, forbiddenRouterSize, noIsWorkingRouterSize } = commonIndex;
-    const tagData = {
-      value: [
-        {
-          type: '正常',
-          value: normalTagSize,
-        },
-        {
-          type: '未绑定',
-          value: noBindTagSize,
-        },
-        {
-          type: '离线',
-          value: noIsWorkingTagSize,
-        },
-        {
-          type: '禁用',
-          value: forbiddenTagSize,
-        },
-      ],
-      title: '价签信息',
-      elementId: 'canvas1',
-    };
-
-    const routerData = {
-      value: [
-        {
-          type: '正常',
-          value: normalRouterSize,
-        },
-        {
-          type: '离线',
-          value: noIsWorkingRouterSize,
-        },
-        {
-          type: '禁用',
-          value: forbiddenRouterSize,
-        },
-      ],
-      title: '路由器信息',
-      elementId: 'canvas2',
-    };
-    console.log(loginInfo, '----------');
+    const { commonIndex, operationLog } = this.props.statisticData;
+    console.log(commonIndex, operationLog);
+    const tagData = this.getPieData(commonIndex, 'tag');
+    const routerData = this.getPieData(commonIndex, 'router');
+    const operationLogs = this.getOperationLog(operationLog);
+    console.log(operationLogs);
 
     return (
       <PageHeaderWrapper>
@@ -124,12 +140,13 @@ class Home extends Component<HomeProps, HomeState> {
             <DataCard icon="user" title="用户数量" number={commonIndex.userSize} />
           </Col>
         </Row>
+
         <Row gutter={16}>
           <DataPie data={tagData} />
           <DataPie data={routerData} />
         </Row>
         <Row>
-          <LoginLog loginInfo={loginInfo} />
+          <OperationLog operationLog={operationLogs} />
         </Row>
       </PageHeaderWrapper>
     );
