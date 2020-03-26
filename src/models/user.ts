@@ -44,8 +44,9 @@ const UserModel: UserModelType = {
   effects: {
     *fetch(_, { call, put }) {
       const response = yield call(queryUsers);
+      console.log(response, 'user');
       yield put({
-        type: 'save',
+        type: 'save', //TODO: 这个save对应哪个reducers
         payload: response,
       });
     },

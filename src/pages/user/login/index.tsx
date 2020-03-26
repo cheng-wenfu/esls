@@ -48,7 +48,7 @@ class Login extends Component<LoginProps, LoginState> {
         payload: {
           ...values,
           //TODO:
-          //type,
+          type,
         },
       });
     }

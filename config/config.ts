@@ -120,97 +120,98 @@ export default {
               name: 'home',
               icon: 'home',
               component: './Home/Home',
-              authority: ['admin', 'user']
+              authority: ['admin', 'user'],
             },
-            /*
+
             //商品管理
             {
               path: '/goodManage',
               name: 'goodManage',
               icon: 'dashboard',
-              component: '',
-              authority: ['admin', 'user']
+              component: './GoodManage/GoodManage',
+              authority: ['admin', 'user'],
             },
+
             //变价监控
             {
               path: '/priceChange',
               name: 'priceChange',
               icon: 'block',
-              component: '',
-              authority: ['admin', 'user']
+              component: './GoodManage/GoodManage',
+              authority: ['admin', 'user'],
             },
             //价签管理
             {
               path: '/tagManage',
               name: 'tagManage',
               icon: 'tag',
-              component: '',
-              authority: ['admin', 'user']
+              component: './GoodManage/GoodManage',
+              authority: ['admin', 'user'],
             },
             //样式管理
             {
               path: '/styleManage',
               name: 'styleManage',
               icon: 'picture',
-              component: '',
-              authority: ['admin', 'user']
+              component: './GoodManage/GoodManage',
+              authority: ['admin', 'user'],
             },
             //店铺管理
             {
               path: '/shopManage',
               name: 'shopManage',
               icon: 'shop',
-              component: '',
-              authority: ['admin', 'user']
+              component: './GoodManage/GoodManage',
+              authority: ['admin', 'user'],
             },
             //路由器管理
             {
               path: '/routerManage',
               name: 'routerManage',
               icon: 'control',
-              component: '',
-              authority: ['admin', 'user']
+              component: './GoodManage/GoodManage',
+              authority: ['admin', 'user'],
             },
             //用户管理
             {
               path: '/userManage',
               name: 'userManage',
               icon: 'user',
-              component: '',
-              authority: ['admin', 'user']
+              component: './GoodManage/GoodManage',
+              authority: ['admin', 'user'],
             },
             //定期任务管理
             {
               path: '/taskManage',
               name: 'taskManage',
               icon: 'pushpin',
-              component: '',
-              authority: ['admin', 'user']
+              component: './GoodManage/GoodManage',
+              authority: ['admin', 'user'],
             },
             //数据备份与导入
             {
               path: '/dataManage',
               name: 'dataManage',
               icon: 'database',
-              component: '',
-              authority: ['admin', 'user']
+              component: './GoodManage/GoodManage',
+              authority: ['admin', 'user'],
             },
             //证书管理
             {
               path: '/certificateManage',
               name: 'certificateManage',
               icon: 'audit',
-              component: '',
-              authority: ['admin', 'user']
+              component: './GoodManage/GoodManage',
+              authority: ['admin', 'user'],
             },
             //系统参数设置
             {
               path: '/setting',
               name: 'setting',
               icon: 'setting',
-              component: '',
-              authority: ['admin', 'user']
-            },*/
+              component: './GoodManage/GoodManage',
+              authority: ['admin', 'user'],
+            },
             {
               component: './404',
             },
@@ -226,10 +227,7 @@ export default {
     {
       path: '/test',
       component: '../layouts/TestLayout',
-      routes: [
-
-      ]
-
+      routes: [],
     },
 
     {
@@ -286,9 +284,9 @@ export default {
   // chainWebpack: webpackPlugin,
   proxy: {
     '/api': {
-    target: 'http://47.107.139.6:8086',
-    changeOrigin: true,
-    pathRewrite: {'^/api': ''},
-    }
+      target: 'http://47.107.139.6:8086',
+      changeOrigin: true,
+      pathRewrite: { '^/api': '' },
+    },
   },
 } as IConfig;

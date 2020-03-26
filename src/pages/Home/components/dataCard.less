@@ -1,0 +1,36 @@
+@import '../../../themes/vars.less';
+
+.dataCard {
+  padding: 5px;
+  margin-bottom: 24px;
+  cursor: pointer;
+  height: 110px;
+  display: flex;
+  align-items: center;
+
+  .iconWarp {
+    font-size: 40px;
+    float: left;
+  }
+
+  .content {
+    width: 100%;
+    padding-left: 50px;
+    text-align: center;
+
+    .title {
+      line-height: 16px;
+      font-size: 16px;
+      margin-bottom: 8px;
+      height: 16px;
+      .text-overflow();
+    }
+
+    .number {
+      line-height: 32px;
+      font-size: 32px;
+      height: 32px;
+      .text-overflow();
+    }
+  }
+}

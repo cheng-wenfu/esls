@@ -35,6 +35,7 @@ const Model: LoginModelType = {
 
   effects: {
     *login({ payload }, { call, put }) {
+      //payload 是fakeAccountLogin 的参数
       const response = yield call(fakeAccountLogin, payload);
       yield put({
         type: 'changeLoginStatus',
@@ -43,12 +44,16 @@ const Model: LoginModelType = {
       // Login successfully
       if (response.code === 1) {
         const urlParams = new URL(window.location.href);
+        console.log(urlParams);
         const params = getPageQuery();
+        console.log(params);
         let { redirect } = params as { redirect: string };
+        console.log(redirect);
         if (redirect) {
           const redirectUrlParams = new URL(redirect);
           if (redirectUrlParams.origin === urlParams.origin) {
             redirect = redirect.substr(urlParams.origin.length);
+            console.log(redirect);
             if (redirect.match(/^\/.*#/)) {
               redirect = redirect.substr(redirect.indexOf('#') + 1);
             }
