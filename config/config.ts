@@ -132,7 +132,7 @@ export default {
               authority: ['admin', 'user'],
             },
 
-            //变价监控
+            /*/变价监控
             {
               path: '/priceChange',
               name: 'priceChange',
@@ -211,7 +211,7 @@ export default {
               icon: 'setting',
               component: './GoodManage/GoodManage',
               authority: ['admin', 'user'],
-            },
+            },*/
             {
               component: './404',
             },
