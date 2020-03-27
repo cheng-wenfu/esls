@@ -5,7 +5,7 @@ export interface LogDataType {
   userName: string;
   operation: string;
   ipAddress: string;
-  time: string;
+  time: number;
 }
 
 interface OperationLogProps {
@@ -21,7 +21,7 @@ const OperationLog: React.FC<OperationLogProps> = ({ operationLog }) => {
     },
     {
       title: '操作',
-      ataIndex: 'operation',
+      dataIndex: 'operation',
       key: 'operation',
     },
     {

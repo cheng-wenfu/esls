@@ -6,7 +6,7 @@ interface valueType {
   value: number;
 }
 
-interface dataType {
+export interface PieDataType {
   value: Array<valueType>;
   elementId: string;
   title?: string;
@@ -14,7 +14,7 @@ interface dataType {
 }
 
 interface DataPieProps {
-  data: dataType;
+  data: PieDataType;
 }
 
 const DataPie: React.FC<DataPieProps> = ({ data }) => {
