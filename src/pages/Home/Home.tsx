@@ -7,6 +7,7 @@ import { Dispatch, AnyAction } from 'redux';
 import { ConnectState, HomeModelState } from '@/models/connect';
 import { commonIndexType, LogType } from '@/models/home';
 import { LogDataType } from './components/OperationLog';
+import { PieDataType } from './components/DataPie';
 
 import DataCard from './components/DataCard';
 import DataPie from './components/DataPie';
@@ -44,7 +45,7 @@ class Home extends Component<HomeProps, HomeState> {
    * @param commonIndex 初始化数据
    * @param type 路由器或者是价签
    */
-  getPieData(commonIndex: commonIndexType, type: 'tag' | 'router') {
+  getPieData(commonIndex: commonIndexType, type: 'tag' | 'router'): PieDataType | undefined {
     if (type === 'tag') {
       const { normalTagSize, noBindTagSize, noIsWorkingTagSize, forbiddenTagSize } = commonIndex;
       const tagData = {
@@ -70,7 +71,8 @@ class Home extends Component<HomeProps, HomeState> {
         elementId: 'canvas1',
       };
       return tagData;
-    } else if (type === 'router') {
+    }
+    if (type === 'router') {
       const { normalRouterSize, forbiddenRouterSize, noIsWorkingRouterSize } = commonIndex;
       const routerData = {
         value: [
@@ -92,14 +94,20 @@ class Home extends Component<HomeProps, HomeState> {
       };
       return routerData;
     }
+    return undefined;
   }
 
-  getOperationLog(operationLog: LogType[]): LogDataType[] {
+  /**
+   * 获取用户操作日志
+   * @param operationLog 详细操作日志
+   */
+  getOperationLog(operationLog: LogType[]): Array<LogDataType> {
     //为什么是先调用这个函数，再调用componentDidMount
     console.log('11111111111');
     const operationLogs = [];
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < operationLog.length; i++) {
       let { logDescription, userName, ip, createTime } = operationLog[i];
+      console.log('logDescription', logDescription);
       operationLogs.push({
         userName: userName,
         operation: logDescription,
