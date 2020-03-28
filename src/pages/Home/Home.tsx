@@ -18,15 +18,8 @@ interface HomeProps {
   statisticData: HomeModelState;
 }
 
-interface HomeState {
-  page: number;
-}
 
-class Home extends Component<HomeProps, HomeState> {
-  state: HomeState = {
-    page: 0,
-  };
-
+class Home extends Component<HomeProps> {
   componentDidMount() {
     const { dispatch } = this.props;
     //下面是页面请求
@@ -35,7 +28,7 @@ class Home extends Component<HomeProps, HomeState> {
     });
     dispatch({
       type: 'home/fetchOperationLog',
-      payload: this.state.page,
+      payload: 0,
     });
     console.log('2222222222222222');
   }
@@ -120,6 +113,7 @@ class Home extends Component<HomeProps, HomeState> {
 
   render() {
     const { commonIndex, operationLog } = this.props.statisticData;
+    const { dispatch } = this.props;
     console.log(commonIndex, operationLog);
     const tagData = this.getPieData(commonIndex, 'tag');
     const routerData = this.getPieData(commonIndex, 'router');
@@ -154,7 +148,7 @@ class Home extends Component<HomeProps, HomeState> {
           <DataPie data={routerData} />
         </Row>
         <Row>
-          <OperationLog operationLog={operationLogs} />
+          <OperationLog operationLog={operationLogs} dispatch={dispatch} />
         </Row>
       </PageHeaderWrapper>
     );
