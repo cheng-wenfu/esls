@@ -5,7 +5,7 @@ import { connect } from 'dva';
 import { Dispatch, AnyAction } from 'redux';
 
 import GoodsTable from './components/GoodsTable';
-import TagsTable from './components/tagsTable';
+import TagsTable from './components/TagsTable';
 
 import { ConnectState, GoodManageModelState } from '@/models/connect';
 import { GoodsDataType, TagsDataType } from '@/models/goodManage';
@@ -15,26 +15,16 @@ interface GoodManageProps {
   pageData: GoodManageModelState;
 }
 
-interface GoodManageState {
-  goodsPage: number;
-  tagsPage: number;
-}
-
-class GoodManage extends Component<GoodManageProps, GoodManageState> {
-  state: GoodManageState = {
-    goodsPage: 0,
-    tagsPage: 0,
-  };
-
+class GoodManage extends Component<GoodManageProps> {
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch({
       type: 'goodManage/fetchGoodsData',
-      payload: this.state.goodsPage,
+      payload: 0,
     });
     dispatch({
       type: 'goodManage/fetchTagsData',
-      payload: this.state.tagsPage,
+      payload: 0,
     });
   }
 
@@ -105,15 +95,16 @@ class GoodManage extends Component<GoodManageProps, GoodManageState> {
 
   render() {
     const { goodsData, tagsData } = this.props.pageData;
+    const { dispatch } = this.props;
     const goodsTableData = this.getGoodsTableData(goodsData);
     const tagsTableData = this.getTagsTableData(tagsData);
     return (
       <PageHeaderWrapper>
         <Row>
-          <GoodsTable goodsData={goodsTableData} />
+          <GoodsTable goodsData={goodsTableData} dispatch={dispatch} />
         </Row>
         <Row>
-          <TagsTable tagsData={tagsTableData} />
+          <TagsTable tagsData={tagsTableData} dispatch={dispatch} />
         </Row>
       </PageHeaderWrapper>
     );
