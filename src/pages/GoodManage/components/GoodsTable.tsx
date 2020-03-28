@@ -1,13 +1,28 @@
-import React from 'react';
-import { Table } from 'antd';
+import React, { useState } from 'react';
+import { Table, Button } from 'antd';
+import { Dispatch, AnyAction } from 'redux';
 
 import { GoodsDataType } from '@/models/goodManage';
+import styles from './GoodsTable.less';
 
 interface GoodsTableProps {
   goodsData: GoodsDataType[];
+  dispatch: Dispatch<AnyAction>;
 }
 
-const GoodsTable: React.FC<GoodsTableProps> = ({ goodsData }) => {
+const GoodsTable: React.FC<GoodsTableProps> = ({ goodsData, dispatch }) => {
+  const [current, setCurrent] = useState(1);
+  const pagination = {
+    total: 200,
+    current: current,
+    onChange: (page: number) => {
+      setCurrent(page);
+      dispatch({
+        type: 'goodManage/fetchGoodsData',
+        payload: current - 1,
+      });
+    },
+  };
   const colums = [
     {
       title: '商品名称',
@@ -54,13 +69,28 @@ const GoodsTable: React.FC<GoodsTableProps> = ({ goodsData }) => {
       dataIndex: 'waitUpdate',
       key: 'waitUpdate',
     },
-    // {
-    //     title: '操作',
-    //     dataIndex: 'name',
-    //     key: 'name',
-    // },
+    {
+      title: '操作',
+      dataIndex: 'name',
+      key: 'name',
+    },
   ];
-  return <Table dataSource={goodsData} columns={colums} />;
+  return (
+    <div>
+      <div className={styles.tableOperations}>
+        <Button>刷新</Button>
+        <Button>筛选预警商品</Button>
+        <Button>添加商品</Button>
+      </div>
+      <Table
+        dataSource={goodsData}
+        columns={colums}
+        pagination={pagination}
+        bordered
+        title={() => '商品数据管理'}
+      />
+    </div>
+  );
 };
 
 export default GoodsTable;

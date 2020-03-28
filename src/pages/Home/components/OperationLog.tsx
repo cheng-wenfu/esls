@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Table } from 'antd';
+import { Dispatch, AnyAction } from 'redux';
 
 export interface LogDataType {
   userName: string;
@@ -10,9 +11,24 @@ export interface LogDataType {
 
 interface OperationLogProps {
   operationLog: LogDataType[];
+  dispatch: Dispatch<AnyAction>;
 }
 
-const OperationLog: React.FC<OperationLogProps> = ({ operationLog }) => {
+const OperationLog: React.FC<OperationLogProps> = ({ operationLog, dispatch }) => {
+  const [current, setCurrent] = useState(1);
+  const pagination = {
+    total: 200,
+    current: current,
+    onChange: (page: number) => {
+      console.log(page);
+      setCurrent(page);
+      //
+      dispatch({
+        type: 'home/fetchOperationLog',
+        payload: current - 1,
+      });
+    },
+  };
   const columns = [
     {
       title: '用户名',
@@ -36,7 +52,7 @@ const OperationLog: React.FC<OperationLogProps> = ({ operationLog }) => {
     },
   ];
 
-  return <Table dataSource={operationLog} columns={columns} />;
+  return <Table dataSource={operationLog} columns={columns} pagination={pagination} />;
 };
 
 export default OperationLog;
