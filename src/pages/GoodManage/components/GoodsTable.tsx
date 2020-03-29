@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { Table, Button } from 'antd';
+import { Table, Button, Modal } from 'antd';
 import { Dispatch, AnyAction } from 'redux';
 
+import AddGoodsForm from './AddGoodsForm';
+
 import { GoodsDataType } from '@/models/goodManage';
-import styles from './GoodsTable.less';
+//import styles from './GoodsTable.less';
 
 interface GoodsTableProps {
   goodsData: GoodsDataType[];
@@ -12,6 +14,28 @@ interface GoodsTableProps {
 
 const GoodsTable: React.FC<GoodsTableProps> = ({ goodsData, dispatch }) => {
   const [current, setCurrent] = useState(1);
+  const [visible, setVisible] = useState(false);
+
+  function handleRefresh() {
+    dispatch({
+      type: 'goodManage/fetchGoodsData',
+      payload: current - 1,
+    });
+  }
+
+  function showModal() {
+    setVisible(true);
+  }
+  function handleModalOk(e) {
+    console.log(e);
+    setVisible(false);
+  }
+
+  function handleModalCancel(e) {
+    console.log(e);
+    setVisible(false);
+  }
+
   const pagination = {
     total: 200,
     current: current,
@@ -77,10 +101,19 @@ const GoodsTable: React.FC<GoodsTableProps> = ({ goodsData, dispatch }) => {
   ];
   return (
     <div>
-      <div className={styles.tableOperations}>
-        <Button>刷新</Button>
+      <div className="tableOperations">
+        <Button onClick={handleRefresh}>刷新</Button>
         <Button>筛选预警商品</Button>
-        <Button>添加商品</Button>
+        <Button onClick={showModal}>添加商品</Button>
+        <Modal
+          title="添加商品"
+          visible={visible}
+          onOk={handleModalOk}
+          onCancel={handleModalCancel}
+          width={900}
+        >
+          <AddGoodsForm />
+        </Modal>
       </div>
       <Table
         dataSource={goodsData}
