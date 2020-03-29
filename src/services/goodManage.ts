@@ -8,7 +8,7 @@ export async function getGoodsData(page: number) {
 }
 
 export async function getTagsData(page: number) {
-  const url = `/api//tags/?page=${page}&count=3`;
+  const url = `/api/tags/?page=${page}&count=3`;
   return request(url, {
     method: 'GET',
   });
