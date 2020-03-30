@@ -131,16 +131,14 @@ export default {
               component: './GoodManage/GoodManage',
               authority: ['admin', 'user'],
             },
-
-            /*/变价监控
             {
-              path: '/priceChange',
-              name: 'priceChange',
-              icon: 'block',
-              component: './GoodManage/GoodManage',
+              path: '/changePrice',
+              name: 'changePrice',
+              icon: 'profile',
+              component: './ChangePrice/ChangePrice',
               authority: ['admin', 'user'],
             },
-            //价签管理
+            /*/价签管理
             {
               path: '/tagManage',
               name: 'tagManage',
