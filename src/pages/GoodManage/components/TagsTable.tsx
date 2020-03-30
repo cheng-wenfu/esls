@@ -18,7 +18,7 @@ const TagsTable: React.FC<TagsTableProps> = ({ tagsData, dispatch }) => {
       setCurrent(page);
       dispatch({
         type: 'goodManage/fetchTagsData',
-        payload: current - 1,
+        payload: page - 1,
       });
     },
   };

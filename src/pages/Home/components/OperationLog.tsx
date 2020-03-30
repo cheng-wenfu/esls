@@ -22,10 +22,10 @@ const OperationLog: React.FC<OperationLogProps> = ({ operationLog, dispatch }) =
     onChange: (page: number) => {
       console.log(page);
       setCurrent(page);
-      //
+      //TODO: 检查所有page - 1 对应的表格对不对
       dispatch({
         type: 'home/fetchOperationLog',
-        payload: current - 1,
+        payload: page - 1,
       });
     },
   };

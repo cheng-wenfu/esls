@@ -43,7 +43,7 @@ const GoodsTable: React.FC<GoodsTableProps> = ({ goodsData, dispatch }) => {
       setCurrent(page);
       dispatch({
         type: 'goodManage/fetchGoodsData',
-        payload: current - 1,
+        payload: page - 1,
       });
     },
   };
