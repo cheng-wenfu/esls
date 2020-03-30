@@ -49,7 +49,7 @@ export default {
   'menu.editor.mind': '脑图编辑器',
   'menu.editor.koni': '拓扑编辑器',
   'menu.goodManage': '商品管理',
-  'menu.priceChange': '变价监控',
+  'menu.changePrice': '变价监控',
   'menu.tagManage': '价签管理',
   'menu.styleManage': '样式管理',
   'menu.shopManage': '店铺管理',
