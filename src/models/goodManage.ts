@@ -28,6 +28,7 @@ export interface TagStyle {
 }
 
 export interface TagsDataType {
+  id: number;
   barCode: string; //价签条码
   screenType: string; //价签屏幕类型
   routerBarCodeAndChannelId: string; // AP/信道
@@ -78,6 +79,7 @@ const Model: GoodManageModelType = {
     ],
     tagsData: [
       {
+        id: 0,
         barCode: '', //价签条码
         screenType: '', //价签屏幕类型
         routerBarCodeAndChannelId: '', // AP/信道
