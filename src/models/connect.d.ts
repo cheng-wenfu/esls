@@ -7,6 +7,7 @@ import { UserModelState } from './user';
 import { StateType } from './login';
 import { HomeModelState } from './home';
 import { GoodManageModelState } from './goodManage';
+import { ChangePriceModelState } from './changePrice';
 
 export {
   GlobalModelState,
@@ -14,6 +15,7 @@ export {
   UserModelState,
   HomeModelState,
   GoodManageModelState,
+  ChangePriceModelState,
 };
 
 export interface Loading {
@@ -36,6 +38,7 @@ export interface ConnectState {
   login: StateType;
   home: HomeModelState;
   goodManage: GoodManageModelState;
+  changePrice: ChangePriceModelState;
 }
 
 export interface Route extends MenuDataItem {
